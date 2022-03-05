@@ -1,7 +1,8 @@
-FROM apache/airflow:2.0.1
+FROM apache/airflow:2.2.3
 
 # Use root user for installation
 USER root
+
 
 ## Setup MSSQL driver
 RUN apt-get update -y && apt-get update \
@@ -19,19 +20,21 @@ RUN ACCEPT_EULA=Y apt-get install mssql-tools -y \
   && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
   && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
 
-# python libraries
-RUN apt-get update -y && \
-    apt-get install -y python3-pip python3-dev
 
 RUN  pip install pyodbc pymssql==2.1.4 psycopg2-binary
 
 # New entrypoint script
-COPY init_db_and_start.sh .
-RUN chmod +x ./init_db_and_start.sh
+COPY init_db_and_start.sh /
+RUN chmod +x /init_db_and_start.sh
 
 # Set airflow home
-ENV AIRFLOW_HOME=/usr/local/airflow
+ENV AIRFLOW_HOME=/opt/airflow
 
 USER airflow
 
-ENTRYPOINT [ "bash",  "./init_db_and_start.sh" ]
+COPY airflow.cfg $AIRFLOW_HOME/airflow.cfg
+
+# RUN touch unittests.cfg
+# RUN touch /usr/local/airflow/airflow.cfg
+
+ENTRYPOINT [ "bash",  "/init_db_and_start.sh" ]

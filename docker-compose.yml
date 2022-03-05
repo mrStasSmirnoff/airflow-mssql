@@ -1,23 +1,24 @@
 version: '2.1'
 services:
   airflow:
-    image: airflow-mssql
+    image: airflow-mssql:latest
     build: .
     environment:
       AIRFLOW_ADMIN_USERNAME: admin
       AIRFLOW_ADMIN_PASSWORD: clever123
       AIRFLOW_ADMIN_FIRSTNAME: Data
       AIRFLOW_ADMIN_LASTNAME: Team
-      AIRFLOW_ADMIN_EMAIL: datateam@cleverbridge.com
+      AIRFLOW_ADMIN_EMAIL: mr.stassmirnoff@hotmail.com
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:clever123@postgres:5432/airflow
       AIRFLOW__CORE__FERNET_KEY: twaQnFgC2W0cqnGGlqYFNJ9H7jtrcmCsP4f9nitBe1o=
       AIRFLOW__WEBSERVER__RBAC: "true"
       AUTH_USER_REGISTRATION: "True"
       EXECUTOR: Local
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
     ports:
       - "8080:8080"
     volumes:
-      - ./dags:/usr/local/airflow/dags:z
+      - ./dags:/opt/airflow/dags:z
     depends_on:
     - postgres
   postgres:
