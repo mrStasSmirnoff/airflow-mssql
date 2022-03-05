@@ -91,7 +91,6 @@ def transform_data(root, **kwargs) -> pd.DataFrame:
     push_to_xcom(kwargs['ti'], key='transformed_data', value=df_)
 
 
-
 def write_data_to_mssql(df, **kwargs):
     # config.py for MSSQL
 

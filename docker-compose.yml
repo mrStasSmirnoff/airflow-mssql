@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   airflow:
-    image: dockerregistry.cgn.cleverbridge.com/datawhisperers/airflow-ora
+    image: airflow-mssql
     build: .
     environment:
       AIRFLOW_ADMIN_USERNAME: admin
