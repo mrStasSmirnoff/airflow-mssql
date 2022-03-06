@@ -5,7 +5,7 @@ services:
     build: .
     environment:
       AIRFLOW_ADMIN_USERNAME: admin
-      AIRFLOW_ADMIN_PASSWORD: clever123
+      AIRFLOW_ADMIN_PASSWORD: admin
       AIRFLOW_ADMIN_FIRSTNAME: Data
       AIRFLOW_ADMIN_LASTNAME: Team
       AIRFLOW_ADMIN_EMAIL: mr.stassmirnoff@hotmail.com
